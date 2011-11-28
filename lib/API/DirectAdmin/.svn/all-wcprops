@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/oss/!svn/ver/1033/API-DirectAdmin/lib/API/DirectAdmin
+END
+DNS.pm
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/oss/!svn/ver/1038/API-DirectAdmin/lib/API/DirectAdmin/DNS.pm
+END
+Mysql.pm
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/oss/!svn/ver/1038/API-DirectAdmin/lib/API/DirectAdmin/Mysql.pm
+END
+Domain.pm
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/oss/!svn/ver/1038/API-DirectAdmin/lib/API/DirectAdmin/Domain.pm
+END
+Ip.pm
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/oss/!svn/ver/1038/API-DirectAdmin/lib/API/DirectAdmin/Ip.pm
+END
+User.pm
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/oss/!svn/ver/1038/API-DirectAdmin/lib/API/DirectAdmin/User.pm
+END
