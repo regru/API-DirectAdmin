@@ -84,6 +84,33 @@ API::DirectAdmin - interface to the DirectAdmin Hosting Panel API ( http://www.d
     die "Cannot delete account $delete_result->{text}";
  }
 
+=head1 INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+=head1 DEPENDENCIES
+
+This module requires these other modules and libraries:
+  LWP::UserAgent
+  HTTP::Request
+  URI
+  Carp 
+  Data::Dumper
+
+=head1 COPYRIGHT AND LICENCE
+
+Put the correct copyright and licence information here.
+
+Copyright (C) 2011 by Andrey Kuzmin
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.10.1 or,
+at your option, any later version of Perl 5 you may have available.
 
 =cut
 
