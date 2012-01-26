@@ -166,9 +166,9 @@ sub query_abstract {
         params 	      => $params,
     );
     
-    return $server_answer;
-
     carp Dumper $server_answer if $DEBUG;
+
+    return $server_answer;
 }
 
 # Kill slashes at start / end string

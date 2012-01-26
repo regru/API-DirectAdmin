@@ -4,7 +4,7 @@ require API::DirectAdmin;
 
 use strict;
 
-our $VERSION = 0.01;
+our $VERSION = 0.03;
 
 # Return zone dump
 # params: domain
@@ -40,13 +40,13 @@ sub add_record {
 
     return API::DirectAdmin::query_abstract(
         params         => \%params,
-        command        => 'CMD_API_DNS_ADMIN',
+        command        => 'CMD_API_DNS_CONTROL',
 	method	       => 'POST',
         allowed_fields => "type name action value domain",
     );
 }
 
-# Remove records A, MX, CNAME, NS, PTR, TXT, AAAA
+# Remove records A, MX, CNAME, NS, PTR, TXT, AAAA, SRV
 # params: domain, type, name, value
 sub remove_record {
     my $params = shift;
@@ -55,6 +55,8 @@ sub remove_record {
 	action => 'select',
 	lc $params->{type} . 'recs0' => "name=$params->{name}&value=$params->{value}",
     );
+    
+    delete $params->{type};
     
     my %params = (%$params, %add_params);
 
