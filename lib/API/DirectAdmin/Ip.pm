@@ -4,7 +4,7 @@ use strict;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 # Return list of IP
 # INPUT
@@ -12,7 +12,7 @@ our $VERSION = 0.02;
 sub list {
     my ($self ) = @_;
 
-    return $self->directadmin->query_abstract(
+    return $self->directadmin->query(
 	command => 'CMD_API_SHOW_RESELLER_IPS',
     )->{list};
 }
@@ -34,7 +34,7 @@ sub add {
     
     my %params = (%$params, %add_params);
     
-    return $self->directadmin->query_abstract(
+    return $self->directadmin->query(
 	params  => \%params,
 	method	=> 'POST',
 	command => 'CMD_API_IP_MANAGER',
@@ -61,7 +61,7 @@ sub remove {
     
     my %params = (%$params, %add_params);
     
-    return $self->directadmin->query_abstract(
+    return $self->directadmin->query(
 	params  => \%params,
 	method	=> 'POST',
 	command => 'CMD_API_IP_MANAGER',

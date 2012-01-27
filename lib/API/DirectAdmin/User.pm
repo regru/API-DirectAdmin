@@ -5,13 +5,13 @@ use Carp;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 # Return list of users (only usernames)
 sub list {
     my ($self ) = @_;
 
-    return $self->directadmin->query_abstract(
+    return $self->directadmin->query(
 	command => 'CMD_API_SHOW_ALL_USERS',
     )->{list};
 }
@@ -29,7 +29,7 @@ sub create {
     
     my %params = (%$params, %add_params);
 
-    my $responce = $self->directadmin->query_abstract(
+    my $responce = $self->directadmin->query(
 	params         => \%params,
 	command        => 'CMD_API_ACCOUNT_USER',
 	allowed_fields =>
@@ -61,7 +61,7 @@ sub disable {
     
     my %params = (%$params, %add_params);
     
-     my $responce = $self->directadmin->query_abstract(
+     my $responce = $self->directadmin->query(
 	command        => 'CMD_API_SELECT_USERS',
 	method	       => 'POST',
 	params         => \%params,
@@ -86,7 +86,7 @@ sub enable {
     
     my %params = (%$params, %add_params);
     
-    my $responce = $self->directadmin->query_abstract(
+    my $responce = $self->directadmin->query(
 	command        => 'CMD_API_SELECT_USERS',
 	method	       => 'POST',
 	params         => \%params,
@@ -112,7 +112,7 @@ sub delete {
     
     my %params = (%$params, %add_params);
 
-    my $responce = $self->directadmin->query_abstract(
+    my $responce = $self->directadmin->query(
 	command        => 'CMD_API_SELECT_USERS',
 	method	       => 'POST',
 	params         => \%params,
@@ -130,7 +130,7 @@ sub delete {
 sub change_password {
     my ($self, $params ) = @_;
 
-    my $responce = $self->directadmin->query_abstract(
+    my $responce = $self->directadmin->query(
 	command        => 'CMD_API_USER_PASSWD',
 	method	       => 'POST',
 	params         => $params,
@@ -162,7 +162,7 @@ sub change_package {
     
     my %params = (%$params, %add_params);
     
-    my $responce = $self->directadmin->query_abstract(
+    my $responce = $self->directadmin->query(
 	command        => 'CMD_API_MODIFY_USER',
 	method	       => 'POST',
 	params         => \%params,
@@ -180,7 +180,7 @@ sub change_package {
 sub show_packages {
     my ($self ) = @_;
 
-    my $responce = $self->directadmin->query_abstract(
+    my $responce = $self->directadmin->query(
 	command => 'CMD_API_PACKAGES_USER',
     )->{list};
 

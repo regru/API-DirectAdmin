@@ -5,7 +5,7 @@ use Data::Dumper;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 # Return domains list
 # INPUT
@@ -13,7 +13,7 @@ our $VERSION = 0.02;
 sub list {
     my ($self ) = @_;
 
-    return $self->directadmin->query_abstract(
+    return $self->directadmin->query(
 	command => 'CMD_API_SHOW_DOMAINS',
     )->{list};
 }
@@ -31,7 +31,7 @@ sub add {
     
     #warn 'params ' . Dumper(\%params) if $DEBUG;
 
-    my $responce = $self->directadmin->query_abstract(
+    my $responce = $self->directadmin->query(
 	params         => \%params,
 	command        => 'CMD_API_DOMAIN',
 	method	       => 'POST',

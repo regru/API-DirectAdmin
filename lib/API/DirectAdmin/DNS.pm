@@ -5,7 +5,7 @@ use Carp;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 # Return zone dump
 # params: domain
@@ -18,7 +18,7 @@ sub dumpzone {
     
     my %params = (%$params, %add_params);
     
-    my $zone = $self->directadmin->query_abstract(
+    my $zone = $self->directadmin->query(
         params         => \%params,
         command        => 'CMD_API_DNS_CONTROL',
         allowed_fields => 'domain noparse',
@@ -39,7 +39,7 @@ sub add_record {
     
     my %params = (%$params, %add_params);
 
-    return $self->directadmin->query_abstract(
+    return $self->directadmin->query(
         params         => \%params,
         command        => 'CMD_API_DNS_CONTROL',
 	method	       => 'POST',
@@ -61,7 +61,7 @@ sub remove_record {
     
     my %params = (%$params, %add_params);
 
-    return $self->directadmin->query_abstract(
+    return $self->directadmin->query(
         params         => \%params,
         command        => 'CMD_API_DNS_CONTROL',
 	method	       => 'POST',

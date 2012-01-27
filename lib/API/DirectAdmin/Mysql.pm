@@ -6,7 +6,7 @@ use Carp;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 # Create database for user
 # Connection data MUST BE for user: auth_user => 'admin_login|user_login'
@@ -30,7 +30,7 @@ sub adddb {
     
     carp 'params ' . Dumper(\%params) if $self->{debug};
     
-    my $responce = $self->directadmin->query_abstract(
+    my $responce = $self->directadmin->query(
 	command        => 'CMD_API_DATABASES',
 	method	       => 'POST',
 	params         => \%params,

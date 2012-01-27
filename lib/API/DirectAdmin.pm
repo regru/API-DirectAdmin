@@ -4,11 +4,11 @@ use strict;
 
 use LWP::UserAgent;
 use HTTP::Request;
-use URI;
-use Carp;
 use Data::Dumper;
+use Carp;
+use URI;
 
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 our $DEBUG   = '';
 our $FAKE_ANSWER = '';
 
@@ -43,7 +43,6 @@ sub new {
 
     return bless $self, $class;
 }
-
 
 # initialize components
 sub init_components {
@@ -110,7 +109,7 @@ sub filter_hash {
 }
 
 # all params derived from get_auth_hash
-sub query_abstract {
+sub query {
     my ( $self, %params ) = @_;
 
     my $command   = delete $params{command};
