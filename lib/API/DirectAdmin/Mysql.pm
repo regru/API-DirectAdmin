@@ -1,13 +1,12 @@
 package API::DirectAdmin::Mysql;
 
-require API::DirectAdmin;
-
 use strict;
-
 use Data::Dumper;
+use Carp;
 
-our $VERSION = 0.01;
-our $DEBUG   = '';
+use base 'API::DirectAdmin::Component';
+
+our $VERSION = 0.02;
 
 # Create database for user
 # Connection data MUST BE for user: auth_user => 'admin_login|user_login'
@@ -21,7 +20,7 @@ our $DEBUG   = '';
 #    passwd2	=> 'DBPASSWD',
 #    user	=> 'DBLOGIN',
 sub adddb {
-    my $params = shift;
+    my ($self, $params ) = @_;
      
      my %add_params = (
 	action	 => 'create',
@@ -29,9 +28,9 @@ sub adddb {
     
     my %params = (%$params, %add_params);
     
-    warn 'params ' . Dumper(\%params) if $DEBUG;
+    carp 'params ' . Dumper(\%params) if $self->{debug};
     
-    my $responce = API::DirectAdmin::query_abstract(
+    my $responce = $self->directadmin->query_abstract(
 	command        => 'CMD_API_DATABASES',
 	method	       => 'POST',
 	params         => \%params,
@@ -42,7 +41,7 @@ sub adddb {
 			   user',
     );
     
-    warn '$responce ' . Dumper(\$responce) if $DEBUG;
+    carp '$responce ' . Dumper(\$responce) if $self->{debug};
     
     return $responce if $responce;    
 

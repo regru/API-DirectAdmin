@@ -1,15 +1,16 @@
 package API::DirectAdmin::DNS;
 
-require API::DirectAdmin;
-
 use strict;
+use Carp;
 
-our $VERSION = 0.03;
+use base 'API::DirectAdmin::Component';
+
+our $VERSION = 0.04;
 
 # Return zone dump
 # params: domain
 sub dumpzone {
-    my $params = shift;
+    my ($self, $params ) = @_;
     
     my %add_params = (
 	noparse => 1,
@@ -17,7 +18,7 @@ sub dumpzone {
     
     my %params = (%$params, %add_params);
     
-    my $zone = API::DirectAdmin::query_abstract(
+    my $zone = $self->directadmin->query_abstract(
         params         => \%params,
         command        => 'CMD_API_DNS_CONTROL',
         allowed_fields => 'domain noparse',
@@ -30,7 +31,7 @@ sub dumpzone {
 # Add records A, MX, CNAME, NS, PTR, TXT, AAAA
 # params: domain, type, name, value
 sub add_record {
-    my $params = shift;
+    my ($self, $params ) = @_;
 
     my %add_params = (
 	action => 'add',
@@ -38,7 +39,7 @@ sub add_record {
     
     my %params = (%$params, %add_params);
 
-    return API::DirectAdmin::query_abstract(
+    return $self->directadmin->query_abstract(
         params         => \%params,
         command        => 'CMD_API_DNS_CONTROL',
 	method	       => 'POST',
@@ -49,7 +50,7 @@ sub add_record {
 # Remove records A, MX, CNAME, NS, PTR, TXT, AAAA, SRV
 # params: domain, type, name, value
 sub remove_record {
-    my $params = shift;
+    my ($self, $params ) = @_;
     
     my %add_params = (
 	action => 'select',
@@ -60,7 +61,7 @@ sub remove_record {
     
     my %params = (%$params, %add_params);
 
-    return API::DirectAdmin::query_abstract(
+    return $self->directadmin->query_abstract(
         params         => \%params,
         command        => 'CMD_API_DNS_CONTROL',
 	method	       => 'POST',

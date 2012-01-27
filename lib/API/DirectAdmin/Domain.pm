@@ -1,22 +1,19 @@
 package API::DirectAdmin::Domain;
 
-require API::DirectAdmin;
-
 use strict;
-
 use Data::Dumper;
 
-our $VERSION = 0.01;
-our $DEBUG   = '';
+use base 'API::DirectAdmin::Component';
+
+our $VERSION = 0.02;
 
 # Return domains list
 # INPUT
 # connection data for USER, not admin
 sub list {
-    my $params = shift;
+    my ($self ) = @_;
 
-    return API::DirectAdmin::query_abstract(
-	params  => $params,
+    return $self->directadmin->query_abstract(
 	command => 'CMD_API_SHOW_DOMAINS',
     )->{list};
 }
@@ -24,7 +21,7 @@ sub list {
 # Add Domain to user account
 # params: domain, php (ON|OFF), cgi (ON|OFF)
 sub add {
-    my $params = shift;
+    my ($self, $params ) = @_;
     
     my %add_params = (
 	action => 'create',
@@ -32,9 +29,9 @@ sub add {
     
     my %params = (%$params, %add_params);
     
-    warn 'params ' . Dumper(\%params) if $DEBUG;
+    #warn 'params ' . Dumper(\%params) if $DEBUG;
 
-    my $responce = API::DirectAdmin::query_abstract(
+    my $responce = $self->directadmin->query_abstract(
 	params         => \%params,
 	command        => 'CMD_API_DOMAIN',
 	method	       => 'POST',
@@ -45,9 +42,9 @@ sub add {
 	    cgi',
     );
     
-    warn 'responce ' . Dumper(\$responce) if $DEBUG;
+    warn 'responce ' . Dumper(\$responce) if $self->{debug};
 
-    warn "Creating domain: $responce->{text}, $responce->{details}" if $DEBUG;
+    warn "Creating domain: $responce->{text}, $responce->{details}" if $self->{debug};
     return $responce;
 }
 
