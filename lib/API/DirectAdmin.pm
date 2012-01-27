@@ -8,7 +8,7 @@ use Data::Dumper;
 use Carp;
 use URI;
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 our $DEBUG   = '';
 our $FAKE_ANSWER = '';
 
@@ -350,6 +350,242 @@ API::DirectAdmin - interface to the DirectAdmin Hosting Panel API ( http://www.d
  if ( $delete_result->{error} == 1 ) {
     die "Cannot delete account $delete_result->{text}";
  }
+ 
+ # Custom request
+ my %params = (
+    action  => 'package',
+    package => 'package_name',
+    user    => 'username',
+ );
+
+ my $responce = $da->query(
+    command        => 'CMD_API_MODIFY_USER',
+    method	   => 'POST',
+    params         => \%params,
+    allowed_fields => 'action
+		       package
+		       user',
+ );
+
+=head1 PUBLIC METHODS
+
+=head2 API::DirectAdmin::User
+
+=over
+
+=item list
+
+Return list of users in array ref.
+
+Example:
+    my $users_list = $da->users->list();
+
+=item create
+
+Create a new user in DirectAdmin panel.
+
+Example:
+    my $result = $da->user->create( {
+        username => 'username',
+        passwd   => 'user_password',
+        passwd2  => 'user_password',
+        domain   => 'example.com',
+        email    => 'email@example.com',
+        package  => 'package_name',
+        ip       => 'IP.ADD.RE.SS',
+     });
+
+=item delete
+
+Delete DirectAdmin user and all user's data
+
+Note: Some DirectAdmin's API methods required parameter "select0" for choose value from list. Like list of users, databases, ip, etc.
+
+Example:
+    my $result = $da->user->delete( {
+	select0 => 'username',
+    } );
+
+=item disable/enable
+
+Two different methods for disable and enable users with same params.
+
+Example:
+    my $disable_result = $da->user->disable( {
+        select0 => 'username',
+    } );
+    
+    my $enable_result = $da->user->enable( {
+	select0 => 'username',
+    } );
+
+=item change_password
+
+Change password for user
+
+Example:
+    my $result = $da->user->change_password( {
+        username => 'username',
+        passwd   => 'new_password',
+        passwd2  => 'new_password',
+    } );
+    
+=item change_package
+
+Change package (tariff plan) for user
+
+Example:
+    my $result = $da->user->change_package( {
+        username => 'username',
+        package  => 'new_package',
+    } );
+    
+=item show_packages
+
+Return list of available packages.
+
+Note: If you created packages through administrator user - you must use admin's login and password for authorisation. Obviously, if packages was created by reseller user - use reseller authorisation.
+
+Example:
+    my $packages = $da->user->show_packages();
+
+=back
+
+=head2 API::DirectAdmin::Domain
+
+=over
+
+=item list
+
+Return list of domains on server.
+
+Example:
+    my $domains = $da->domain->list();
+    
+=item add
+
+Add new domain to user through you connect to server.
+
+Note: For adding domains for customers and you don't khow their password use: auth_user = 'admin_name|customer_name' in auth hash.
+
+Example:
+    my %auth = (
+        auth_user   => 'admin_name|customer_name',
+	auth_passwd => 'admin_passwd',
+        host        => '11.22.33.44',
+    );
+
+    # init
+    my $da = API::DirectAdmin->new(%auth);
+    
+    $result = $da->domain->add({
+	domain => 'newdomain.com',
+	php    => 'ON',
+	cgi    => 'ON',
+    });
+
+=back
+    
+=head2 API::DirectAdmin::Mysql
+
+Control users mysql databases. Now just one method :)
+
+=over
+
+=item adddb
+
+Add database to user. Prefix "username_" will be added to 'name' and 'user';
+
+Example:
+    my %auth = (
+        auth_user   => 'admin_name|customer',
+        auth_passwd => 'admin_passwd',
+        host        => '11.22.33.44',
+    );
+
+    # init
+    my $da = API::DirectAdmin->new(%auth);
+    
+    my $result = $da->mysql->adddb( {
+        name     => 'default', # will be 'customer_default'
+        user     => 'default', # will be 'customer_default'
+        passwd   => 'password',
+        passwd2  => 'password',
+    } );
+
+=back
+    
+=head2 API::DirectAdmin::Ip
+
+=over
+
+=item list
+
+Return array reference of list ip adresses;
+
+Example:
+    my $ip_list = $da->ip->list();
+
+=item add
+
+Add IP address to server config
+
+Example:
+    my $result = $da->ip->add({
+        ip      => '123.234.123.234',
+        status  => 'server',
+    });
+
+=item remove
+
+Remove ip from server
+
+Example:
+    my $result = $da->ip->remove({
+        select0 => '123.234.123.234',
+    });
+    
+=back
+    
+=head2 API::DirectAdmin::DNS
+
+Show zones, add and remove records.
+
+=over
+
+=item dumpzone
+
+Return zone structure for domain
+
+Example:
+
+    $da->dns->dumpzone( {domain => 'domain.com'} );
+
+=item add_record
+
+Add zone record to dns for domain. Available types of records: A, AAAA, NS, MX, TXT, PTR, CNAME, SRV
+
+Example:
+    my $reult = $da->dns->add_record({
+        domain => 'domain.com', 
+        type   => 'A',
+        name   => 'subdomain', # will be "subdomain.domain.com." in record
+        value  => '127.127.127.127',
+    });
+
+=item remove_record
+
+Remove record from domain zone
+
+Example:
+    my $result = $da->dns->remove_record({
+        domain => 'domain.com',
+        type   => 'A',
+        name   => 'subdomain',
+        value  => '127.127.127.127',
+    });
+
+=back
 
 =head1 INSTALLATION
 
