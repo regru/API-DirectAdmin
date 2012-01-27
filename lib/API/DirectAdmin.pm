@@ -8,8 +8,9 @@ use URI;
 use Carp;
 use Data::Dumper;
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 our $DEBUG   = '';
+our $FAKE_ANSWER = '';
 
 # for init subclasses
 init_components(
@@ -32,7 +33,7 @@ sub new {
         ip          => '',
         debug       => $DEBUG,
 	allow_https => 1,
-	fake_answer => '',
+	fake_answer => $FAKE_ANSWER,
         (@_)
     };
 
@@ -208,11 +209,10 @@ sub process_query {
 
     my $query_string = $params{query_string};
     my $method 	     = $params{method};
-    my $fake_answer  = $self->{fake_answer} || '';
 
     confess "Empty query string" unless $query_string;
 
-    my $answer = $fake_answer ? $fake_answer : $self->mk_query_to_server( $method, $query_string, $params{params} );
+    my $answer = $self->{fake_answer} ? $self->{fake_answer} : $self->mk_query_to_server( $method, $query_string, $params{params} );
     carp $answer if $self->{debug};
 
     return $answer;

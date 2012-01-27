@@ -1,6 +1,10 @@
 Revision history for Perl extension API::DirectAdmin.
 
-0.02  Jan 27 2011	Andrey Kuzmin
+0.03  Jan 27 2012	Andrey Kuzmin
+	-- Add FAKE_ANSWER for making tests
+	-- some little fixes
+
+0.02  Jan 27 2012	Andrey Kuzmin
 	-- rewrite API to OO Structure
 	-- rewrite POD
 	-- rewtire tests

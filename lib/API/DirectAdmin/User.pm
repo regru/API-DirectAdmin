@@ -151,7 +151,7 @@ sub change_package {
     my $package = $params->{package};
 
     unless ( $self->{fake_answer} ) {
-	unless ( $package ~~ $self->show_packages($params) ) {
+	unless ( $package ~~ $self->show_packages() ) {
 	    return {error => 1, text => "No such package $package on server"};
 	} 
     }
@@ -178,14 +178,12 @@ sub change_package {
 # Show a list of user packages
 # no params
 sub show_packages {
-    my ($self, $params ) = @_;
+    my ($self ) = @_;
 
     my $responce = $self->directadmin->query_abstract(
 	command => 'CMD_API_PACKAGES_USER',
-	params  => $params,
     )->{list};
-    
-    carp "Show packages" if $self->{debug};
+
     return $responce;
 }
 
