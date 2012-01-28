@@ -378,6 +378,7 @@ API::DirectAdmin - interface to the DirectAdmin Hosting Panel API ( http://www.d
 Return list of users in array ref.
 
 Example:
+
     my $users_list = $da->users->list();
 
 =item create
@@ -385,6 +386,7 @@ Example:
 Create a new user in DirectAdmin panel.
 
 Example:
+
     my $result = $da->user->create( {
         username => 'username',
         passwd   => 'user_password',
@@ -402,6 +404,7 @@ Delete DirectAdmin user and all user's data
 Note: Some DirectAdmin's API methods required parameter "select0" for choose value from list. Like list of users, databases, ip, etc.
 
 Example:
+
     my $result = $da->user->delete( {
 	select0 => 'username',
     } );
@@ -411,6 +414,7 @@ Example:
 Two different methods for disable and enable users with same params.
 
 Example:
+
     my $disable_result = $da->user->disable( {
         select0 => 'username',
     } );
@@ -424,6 +428,7 @@ Example:
 Change password for user
 
 Example:
+
     my $result = $da->user->change_password( {
         username => 'username',
         passwd   => 'new_password',
@@ -435,6 +440,7 @@ Example:
 Change package (tariff plan) for user
 
 Example:
+
     my $result = $da->user->change_package( {
         username => 'username',
         package  => 'new_package',
@@ -447,6 +453,7 @@ Return list of available packages.
 Note: If you created packages through administrator user - you must use admin's login and password for authorisation. Obviously, if packages was created by reseller user - use reseller authorisation.
 
 Example:
+
     my $packages = $da->user->show_packages();
 
 =back
@@ -460,6 +467,7 @@ Example:
 Return list of domains on server.
 
 Example:
+
     my $domains = $da->domain->list();
     
 =item add
@@ -469,6 +477,7 @@ Add new domain to user through you connect to server.
 Note: For adding domains for customers and you don't khow their password use: auth_user = 'admin_name|customer_name' in auth hash.
 
 Example:
+
     my %auth = (
         auth_user   => 'admin_name|customer_name',
 	auth_passwd => 'admin_passwd',
@@ -497,6 +506,7 @@ Control users mysql databases. Now just one method :)
 Add database to user. Prefix "username_" will be added to 'name' and 'user';
 
 Example:
+
     my %auth = (
         auth_user   => 'admin_name|customer',
         auth_passwd => 'admin_passwd',
@@ -524,6 +534,7 @@ Example:
 Return array reference of list ip adresses;
 
 Example:
+
     my $ip_list = $da->ip->list();
 
 =item add
@@ -531,6 +542,7 @@ Example:
 Add IP address to server config
 
 Example:
+
     my $result = $da->ip->add({
         ip      => '123.234.123.234',
         status  => 'server',
@@ -541,6 +553,7 @@ Example:
 Remove ip from server
 
 Example:
+
     my $result = $da->ip->remove({
         select0 => '123.234.123.234',
     });
@@ -566,6 +579,7 @@ Example:
 Add zone record to dns for domain. Available types of records: A, AAAA, NS, MX, TXT, PTR, CNAME, SRV
 
 Example:
+
     my $reult = $da->dns->add_record({
         domain => 'domain.com', 
         type   => 'A',
@@ -578,6 +592,7 @@ Example:
 Remove record from domain zone
 
 Example:
+
     my $result = $da->dns->remove_record({
         domain => 'domain.com',
         type   => 'A',
