@@ -4,7 +4,7 @@ use strict;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 # Return list of IP
 # INPUT
@@ -12,9 +12,12 @@ our $VERSION = 0.03;
 sub list {
     my ($self ) = @_;
 
-    return $self->directadmin->query(
+    my $responce = $self->directadmin->query(
 	command => 'CMD_API_SHOW_RESELLER_IPS',
-    )->{list};
+    );
+
+    return $responce->{list} if ref $responce eq 'HASH';
+    return [];
 }
 
 # Add Ip

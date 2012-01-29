@@ -5,15 +5,18 @@ use Carp;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 # Return list of users (only usernames)
 sub list {
     my ($self ) = @_;
 
-    return $self->directadmin->query(
+    my $responce = $self->directadmin->query(
 	command => 'CMD_API_SHOW_ALL_USERS',
-    )->{list};
+    );
+
+    return $responce->{list} if ref $responce eq 'HASH';
+    return [];
 }
 
 # Create a New User

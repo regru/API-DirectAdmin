@@ -5,7 +5,7 @@ use Data::Dumper;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 # Return domains list
 # INPUT
@@ -13,9 +13,12 @@ our $VERSION = 0.03;
 sub list {
     my ($self ) = @_;
 
-    return $self->directadmin->query(
+    my $responce = $self->directadmin->query(
 	command => 'CMD_API_SHOW_DOMAINS',
-    )->{list};
+    );
+    
+    return $responce->{list} if ref $responce eq 'HASH';
+    return [];
 }
 
 # Add Domain to user account

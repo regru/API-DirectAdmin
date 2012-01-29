@@ -1,5 +1,9 @@
 Revision history for Perl extension API::DirectAdmin.
 
+0.06  Jan 29 2012	Andrey Kuzmin
+	-- Add 'list' and 'deldb' methods to API::DirectAdmin::Mysql
+	-- rewrite all 'list' methods
+
 0.05  Jan 28 2012	Andrey Kuzmin
 	-- Add POD descriptions for all methods with examples
 	

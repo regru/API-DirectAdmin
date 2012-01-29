@@ -18,7 +18,7 @@ BEGIN {
 
 my $manipulate_user = 'zsezse';
 
-use Test::More tests => $ONLINE ? 34 : 34;
+use Test::More tests => $ONLINE ? 36 : 36;
 my %connection_params = (
     host	=> $ENV{host} || '127.0.0.1',
     auth_user	=> $ENV{auth_user} || 'login',
@@ -229,6 +229,14 @@ use_ok('API::DirectAdmin::Mysql');
 
 $connection_params{auth_user} .= '|' . $manipulate_user;
 
+# List Databases
+my $answer = [];
+$da->{fake_answer} = ! $ONLINE ? $answer : undef;
+
+$result = $da->mysql->list();
+is_deeply( $result, $answer, 'API::DirectAdmin::Mysql::list');
+
+# Add Database
 %answer = (
     text 	=> 'Database Created',
     error 	=> 0,
@@ -246,6 +254,18 @@ $result = $da->mysql->adddb(
     }
 );
 is_deeply( $result, \%answer, 'API::DirectAdmin::Mysql::adddb');
+
+# Delete Database
+%answer = (
+    'text' => 'Databases Deleted',
+    'error' => '0',
+    'details' => 'Databases Deleted'
+);
+
+$da->{fake_answer} = ! $ONLINE ? \%answer : undef;
+
+$result = $da->mysql->deldb({ select0 => $manipulate_user .'_default' });
+is_deeply( $result, \%answer, 'API::DirectAdmin::Mysql::deldb');
 
 use_ok('API::DirectAdmin::Domain');
 

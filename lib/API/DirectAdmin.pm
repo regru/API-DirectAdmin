@@ -8,7 +8,7 @@ use Data::Dumper;
 use Carp;
 use URI;
 
-our $VERSION = 0.05;
+our $VERSION = 0.06;
 our $DEBUG   = '';
 our $FAKE_ANSWER = '';
 
@@ -497,9 +497,17 @@ Example:
     
 =head2 API::DirectAdmin::Mysql
 
-Control users mysql databases. Now just one method :)
+Control users mysql databases
 
 =over
+
+=item list
+
+List of databases from user. Return empty array if databases not found.
+
+Example:
+
+    print $da->mysql->list();
 
 =item adddb
 
@@ -522,6 +530,14 @@ Example:
         passwd   => 'password',
         passwd2  => 'password',
     } );
+
+=item deldb
+
+Delete selected database from user.
+
+Example:
+
+    my $result = $da->mysql->deldb({ select0 => 'database_name' });
 
 =back
     
