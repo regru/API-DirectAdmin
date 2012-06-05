@@ -5,7 +5,7 @@ use Carp;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 # Return list of users (only usernames)
 sub list {
@@ -186,6 +186,20 @@ sub show_packages {
     my $responce = $self->directadmin->query(
 	command => 'CMD_API_PACKAGES_USER',
     )->{list};
+
+    return $responce;
+}
+
+# Show user config
+# params: user
+sub show_user_config {
+    my ( $self, $params ) = @_;
+
+    my $responce = $self->directadmin->query(
+	command => 'CMD_API_SHOW_USER_CONFIG',
+	params  => $params,
+	allowed_fields => 'user',
+    );
 
     return $responce;
 }

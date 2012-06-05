@@ -1,14 +1,13 @@
 package API::DirectAdmin;
 
-use strict;
-
+use Modern::Perl '2010';
 use LWP::UserAgent;
 use HTTP::Request;
 use Data::Dumper;
 use Carp;
 use URI;
 
-our $VERSION = 0.06;
+our $VERSION = 0.07;
 our $DEBUG   = '';
 our $FAKE_ANSWER = '';
 
@@ -305,7 +304,7 @@ API::DirectAdmin - interface to the DirectAdmin Hosting Panel API ( http://www.d
  }
 
  my $ip  = $ip_list->[0];
- my $dname  = 'perlaround.ru';
+ my $dname  = 'reg.ru';
  my $user_name = 'user1';
  my $email = 'user1@example.com';
  my $package = 'newpackage';
@@ -455,6 +454,15 @@ Note: If you created packages through administrator user - you must use admin's 
 Example:
 
     my $packages = $da->user->show_packages();
+
+=item show_user_config
+
+Return all user settings.
+
+Example:
+
+    my $user_config = $da->user->show_user_config({ user => 'username' });
+
 
 =back
 
