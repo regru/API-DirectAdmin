@@ -646,8 +646,6 @@ This module requires these other modules and libraries:
 
 =head1 COPYRIGHT AND LICENCE
 
-Put the correct copyright and licence information here.
-
 Copyright (C) 2012 by Andrey "Chips" Kuzmin
 
 This library is free software; you can redistribute it and/or modify
