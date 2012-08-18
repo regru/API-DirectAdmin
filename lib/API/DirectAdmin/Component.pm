@@ -2,10 +2,10 @@
 
 package API::DirectAdmin::Component;
 
-use strict;
+use Modern::Perl '2010';
 use Carp;
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 sub new {
     my ( $class, %params ) = @_;

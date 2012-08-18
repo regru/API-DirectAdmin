@@ -7,7 +7,7 @@ use Data::Dumper;
 use Carp;
 use URI;
 
-our $VERSION = 0.07;
+our $VERSION = 0.08;
 our $DEBUG   = '';
 our $FAKE_ANSWER = '';
 
@@ -433,7 +433,7 @@ Example:
         passwd   => 'new_password',
         passwd2  => 'new_password',
     } );
-    
+
 =item change_package
 
 Change package (tariff plan) for user
@@ -444,7 +444,7 @@ Example:
         username => 'username',
         package  => 'new_package',
     } );
-    
+
 =item show_packages
 
 Return list of available packages.
@@ -477,7 +477,7 @@ Return list of domains on server.
 Example:
 
     my $domains = $da->domain->list();
-    
+
 =item add
 
 Add new domain to user through you connect to server.
@@ -581,7 +581,7 @@ Example:
     my $result = $da->ip->remove({
         select0 => '123.234.123.234',
     });
-    
+
 =back
     
 =head2 API::DirectAdmin::DNS
@@ -638,6 +638,7 @@ To install this module type the following:
 =head1 DEPENDENCIES
 
 This module requires these other modules and libraries:
+  Modern::Perl
   LWP::UserAgent
   HTTP::Request
   URI
@@ -646,7 +647,7 @@ This module requires these other modules and libraries:
 
 =head1 COPYRIGHT AND LICENCE
 
-Copyright (C) 2012 by Andrey "Chips" Kuzmin
+Copyright (C) 2012 by Andrey "Chips" Kuzmin <chipsoid@cpan.org>
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.1 or,

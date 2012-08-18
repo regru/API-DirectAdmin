@@ -1,12 +1,12 @@
 package API::DirectAdmin::Mysql;
 
-use strict;
+use Modern::Perl '2010';
 use Data::Dumper;
 use Carp;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 # Create database for user
 # Connection data MUST BE for user: auth_user => 'admin_login|user_login'

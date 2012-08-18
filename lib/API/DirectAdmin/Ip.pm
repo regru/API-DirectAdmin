@@ -1,10 +1,10 @@
 package API::DirectAdmin::Ip;
 
-use strict;
+use Modern::Perl '2010';
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 # Return list of IP
 # INPUT

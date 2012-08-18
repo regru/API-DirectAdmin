@@ -1,11 +1,11 @@
 package API::DirectAdmin::DNS;
 
-use strict;
+use Modern::Perl '2010';
 use Carp;
 
 use base 'API::DirectAdmin::Component';
 
-our $VERSION = 0.05;
+our $VERSION = 0.06;
 
 # Return zone dump
 # params: domain
@@ -81,7 +81,7 @@ sub remove_record {
 }
 
 # Special parser for zone dump
-# Croped code from Parse::DNS::Zone
+# Cropped code from Parse::DNS::Zone
 sub _parse_zone {
     my ($zonetext, $origin) = @_;
     

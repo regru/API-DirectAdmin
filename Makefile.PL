@@ -14,5 +14,5 @@ WriteMakefile(
     },
     ($] >= 5.005 ?
       (ABSTRACT_FROM  => 'lib/API/DirectAdmin.pm',
-       AUTHOR         => 'Andrey "Chips" Kuzmin <kaachips@gmail.com>') : ()),
+       AUTHOR         => 'Andrey "Chips" Kuzmin <chipsoid@cpan.org>') : ()),
 );
