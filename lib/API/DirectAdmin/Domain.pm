@@ -14,7 +14,7 @@ sub list {
     my ($self ) = @_;
 
     my $responce = $self->directadmin->query(
-	command => 'CMD_API_SHOW_DOMAINS',
+        command => 'CMD_API_SHOW_DOMAINS',
     );
     
     return $responce->{list} if ref $responce eq 'HASH';
@@ -27,7 +27,7 @@ sub add {
     my ($self, $params ) = @_;
     
     my %add_params = (
-	action => 'create',
+        action => 'create',
     );
     
     my %params = (%$params, %add_params);
@@ -35,14 +35,14 @@ sub add {
     #warn 'params ' . Dumper(\%params) if $DEBUG;
 
     my $responce = $self->directadmin->query(
-	params         => \%params,
-	command        => 'CMD_API_DOMAIN',
-	method	       => 'POST',
-	allowed_fields =>
-	   'action
-	    domain
-	    php
-	    cgi',
+        params         => \%params,
+        command        => 'CMD_API_DOMAIN',
+        method	       => 'POST',
+        allowed_fields =>
+           'action
+            domain
+            php
+            cgi',
     );
     
     warn 'responce ' . Dumper(\$responce) if $self->{debug};

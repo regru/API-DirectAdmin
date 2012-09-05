@@ -57,7 +57,7 @@ is( $da->mk_full_query_string( { command => 'CMD', allow_https => 0 } ),
 );
 
 is( $da->mk_full_query_string( {
-	command => 'CMD',
+        command => 'CMD',
         param1  => 'val1',
         param2  => 'val2',
     } ), 
@@ -69,7 +69,7 @@ is( $da->mk_full_query_string( {
         param1      => 'val1',
         param2      => 'val2',
         command     => 'CMD',
-	allow_https => 0, 
+        allow_https => 0, 
     } ), 
     'http://'.$connection_params{auth_user}.':'.$connection_params{auth_passwd}.'@'.$connection_params{host}.':2222/CMD?param1=val1&param2=val2',
     $func
@@ -103,13 +103,13 @@ use_ok('API::DirectAdmin::User');
 
 my $result = $da->user->create(
     {
-	username => $manipulate_user,
-	domain   => 'zse1.ru',
-	passwd   => 'qwerty',
-	passwd2  => 'qwerty',
-	email    => 'test@example.com',
-	ip       => '127.0.0.1',
-	package  => 'newpackage',
+        username => $manipulate_user,
+        domain   => 'zse1.ru',
+        passwd   => 'qwerty',
+        passwd2  => 'qwerty',
+        email    => 'test@example.com',
+        ip       => '127.0.0.1',
+        package  => 'newpackage',
     }
 );
 is_deeply( $result, \%answer, 'API::DirectAdmin::User::create' );
@@ -119,18 +119,18 @@ is_deeply( $result, \%answer, 'API::DirectAdmin::User::create' );
   error   => 1,
   details => 'That username already exists on the system'
 );
-	
+        
 $da->{fake_answer} = ! $ONLINE ? \%answer : undef;
 
 $result = $da->user->create(
     {
-	username => $manipulate_user,
-	domain   => 'zse1.ru',
-	passwd   => 'qwerty',
-	passwd2  => 'qwerty',
-	email    => 'test@example.com',
-	ip       => '127.0.0.1',
-	package  => 'newpackage',
+        username => $manipulate_user,
+        domain   => 'zse1.ru',
+        passwd   => 'qwerty',
+        passwd2  => 'qwerty',
+        email    => 'test@example.com',
+        ip       => '127.0.0.1',
+        package  => 'newpackage',
     }
 );
 is_deeply( $result, \%answer, 'API::DirectAdmin::User::create repeat');
@@ -145,8 +145,8 @@ $da->{fake_answer} = ! $ONLINE ? \%answer : undef;
 
 $result = $da->user->change_password(
     {
-	user => $manipulate_user,
-	pass => 'sdfdsfsdfhsdfj',
+        user => $manipulate_user,
+        pass => 'sdfdsfsdfhsdfj',
     }
 );
 is_deeply( $result, \%answer, 'API::DirectAdmin::User::change_password');
@@ -161,8 +161,8 @@ $da->{fake_answer} = ! $ONLINE ? \%answer : undef;
 
 $result = $da->user->disable(
     {
-	user   => $manipulate_user,
-	reason => 'test reason1',
+        user   => $manipulate_user,
+        reason => 'test reason1',
     }
 );
 is_deeply( $result, \%answer, 'API::DirectAdmin::User::disable');
@@ -171,7 +171,7 @@ $da->{fake_answer} = ! $ONLINE ? \%answer : undef;
 
 $result = $da->user->enable(
     {
-	user => $manipulate_user,
+        user => $manipulate_user,
     }
 );
 is_deeply( $result, \%answer, 'API::DirectAdmin::User::enable');
@@ -190,8 +190,8 @@ $da->{fake_answer} = ! $ONLINE ? \%answer : undef;
 
 $result = $da->user->change_package(
     {
-	user    => $manipulate_user,
-	package => 'newpackage',
+        user    => $manipulate_user,
+        package => 'newpackage',
     }
 );
 
@@ -207,7 +207,7 @@ $da->{fake_answer} = ! $ONLINE ? \%answer : undef;
 
 $result = $da->user->delete(
     {
-	user => $manipulate_user,
+        user => $manipulate_user,
     }
 );
 is_deeply( $result, \%answer, 'API::DirectAdmin::User::delete');
@@ -222,7 +222,7 @@ $da->{fake_answer} = ! $ONLINE ? \%answer : undef;
 
 $result = $da->user->delete(
     {
-	user => $manipulate_user,
+        user => $manipulate_user,
     }
 );
 is_deeply( $result, \%answer , 'API::DirectAdmin::User::delete repeat');

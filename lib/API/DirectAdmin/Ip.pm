@@ -13,7 +13,7 @@ sub list {
     my ($self ) = @_;
 
     my $responce = $self->directadmin->query(
-	command => 'CMD_API_SHOW_RESELLER_IPS',
+        command => 'CMD_API_SHOW_RESELLER_IPS',
     );
 
     return $responce->{list} if ref $responce eq 'HASH';
@@ -29,24 +29,24 @@ sub add {
     my ($self, $params ) = @_;
    
     my %add_params = (
-	action   => 'add',
-	add      => 'Submit',
-	netmask  => '255.255.255.0',
-	notify   => 'no',
+        action   => 'add',
+        add      => 'Submit',
+        netmask  => '255.255.255.0',
+        notify   => 'no',
     );
     
     my %params = (%$params, %add_params);
     
     return $self->directadmin->query(
-	params  => \%params,
-	method	=> 'POST',
-	command => 'CMD_API_IP_MANAGER',
-	allowed_fields => 'ip
-			   action
-			   add
-			   netmask
-			   notify
-			   status',
+        params  => \%params,
+        method	=> 'POST',
+        command => 'CMD_API_IP_MANAGER',
+        allowed_fields => 'ip
+                           action
+                           add
+                           netmask
+                           notify
+                           status',
     );
 }
 
@@ -58,19 +58,19 @@ sub remove {
     my ($self, $params ) = @_;
     
     my %add_params = (
-	action   => 'select',
-	delete   => 'Delete',
+        action   => 'select',
+        delete   => 'Delete',
     );
     
     my %params = (%$params, %add_params);
     
     return $self->directadmin->query(
-	params  => \%params,
-	method	=> 'POST',
-	command => 'CMD_API_IP_MANAGER',
-	allowed_fields => 'select0
-			   action
-			   delete',
+        params  => \%params,
+        method	=> 'POST',
+        command => 'CMD_API_IP_MANAGER',
+        allowed_fields => 'select0
+                           action
+                           delete',
     );
 }
 

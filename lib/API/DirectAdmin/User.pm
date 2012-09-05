@@ -12,7 +12,7 @@ sub list {
     my ($self ) = @_;
 
     my $responce = $self->directadmin->query(
-	command => 'CMD_API_SHOW_ALL_USERS',
+        command => 'CMD_API_SHOW_ALL_USERS',
     );
 
     return $responce->{list} if ref $responce eq 'HASH';
@@ -25,27 +25,27 @@ sub create {
     my ($self, $params ) = @_;
     
     my %add_params = (
-	action   => 'create',
-	add      => 'submit',
-	notify 	 => 'no',
+        action   => 'create',
+        add      => 'submit',
+        notify 	 => 'no',
     );
     
     my %params = (%$params, %add_params);
 
     my $responce = $self->directadmin->query(
-	params         => \%params,
-	command        => 'CMD_API_ACCOUNT_USER',
-	allowed_fields =>
-	   'action
-	    add
-	    notify
-	    username
-	    domain
-	    passwd
-	    passwd2
-	    package
-	    ip
-	    email',
+        params         => \%params,
+        command        => 'CMD_API_ACCOUNT_USER',
+        allowed_fields =>
+           'action
+            add
+            notify
+            username
+            domain
+            passwd
+            passwd2
+            package
+            ip
+            email',
     );
 
     carp "Creating account: $responce->{text}, $responce->{details}" if $self->{debug};
@@ -58,19 +58,19 @@ sub disable {
     my ($self, $params ) = @_;
      
      my %add_params = (
-	suspend	 => 'Suspend',
-	location => 'CMD_SELECT_USERS',
+        suspend	 => 'Suspend',
+        location => 'CMD_SELECT_USERS',
     );
     
     my %params = (%$params, %add_params);
     
      my $responce = $self->directadmin->query(
-	command        => 'CMD_API_SELECT_USERS',
-	method	       => 'POST',
-	params         => \%params,
-	allowed_fields => 'location
-			   suspend
-			   select0',
+        command        => 'CMD_API_SELECT_USERS',
+        method	       => 'POST',
+        params         => \%params,
+        allowed_fields => 'location
+                           suspend
+                           select0',
     );
 
     carp "Suspend account: $responce->{text}, $responce->{details}" if $self->{debug};
@@ -83,19 +83,19 @@ sub enable {
     my ($self, $params ) = @_;
      
      my %add_params = (
-	suspend	 => 'Unsuspend',
-	location => 'CMD_SELECT_USERS',
+        suspend	 => 'Unsuspend',
+        location => 'CMD_SELECT_USERS',
     );
     
     my %params = (%$params, %add_params);
     
     my $responce = $self->directadmin->query(
-	command        => 'CMD_API_SELECT_USERS',
-	method	       => 'POST',
-	params         => \%params,
-	allowed_fields => 'location
-			   suspend
-			   select0',
+        command        => 'CMD_API_SELECT_USERS',
+        method	       => 'POST',
+        params         => \%params,
+        allowed_fields => 'location
+                           suspend
+                           select0',
     );
 
     carp "Unsuspend account: $responce->{text}, $responce->{details}" if $self->{debug};
@@ -109,19 +109,19 @@ sub delete {
     my ($self, $params ) = @_;
      
      my %add_params = (
-	confirmed => 'Confirm',
-	delete    => 'yes',
+        confirmed => 'Confirm',
+        delete    => 'yes',
     );
     
     my %params = (%$params, %add_params);
 
     my $responce = $self->directadmin->query(
-	command        => 'CMD_API_SELECT_USERS',
-	method	       => 'POST',
-	params         => \%params,
-	allowed_fields => 'confirmed
-			   delete
-			   select0',
+        command        => 'CMD_API_SELECT_USERS',
+        method	       => 'POST',
+        params         => \%params,
+        allowed_fields => 'confirmed
+                           delete
+                           select0',
     );
 
     carp "Delete account: $responce->{text}, $responce->{details}" if $self->{debug};
@@ -134,12 +134,12 @@ sub change_password {
     my ($self, $params ) = @_;
 
     my $responce = $self->directadmin->query(
-	command        => 'CMD_API_USER_PASSWD',
-	method	       => 'POST',
-	params         => $params,
-	allowed_fields => 'passwd
-			   passwd2
-			   username',
+        command        => 'CMD_API_USER_PASSWD',
+        method	       => 'POST',
+        params         => $params,
+        allowed_fields => 'passwd
+                           passwd2
+                           username',
     );
 
     carp "Change passwd account: $responce->{text}, $responce->{details}" if $self->{debug};
@@ -154,24 +154,24 @@ sub change_package {
     my $package = $params->{package};
 
     unless ( $self->{fake_answer} ) {
-	unless ( $package ~~ $self->show_packages() ) {
-	    return {error => 1, text => "No such package $package on server"};
-	} 
+        unless ( $package ~~ $self->show_packages() ) {
+            return {error => 1, text => "No such package $package on server"};
+        } 
     }
     
     my %add_params = (
-	action => 'package',
+        action => 'package',
     );
     
     my %params = (%$params, %add_params);
     
     my $responce = $self->directadmin->query(
-	command        => 'CMD_API_MODIFY_USER',
-	method	       => 'POST',
-	params         => \%params,
-	allowed_fields => 'action
-			   package
-			   user',
+        command        => 'CMD_API_MODIFY_USER',
+        method	       => 'POST',
+        params         => \%params,
+        allowed_fields => 'action
+                           package
+                           user',
     );
     
     carp "Change package: $responce->{text}, $responce->{details}" if $self->{debug};
@@ -184,7 +184,7 @@ sub show_packages {
     my ($self ) = @_;
 
     my $responce = $self->directadmin->query(
-	command => 'CMD_API_PACKAGES_USER',
+        command => 'CMD_API_PACKAGES_USER',
     )->{list};
 
     return $responce;
@@ -196,9 +196,9 @@ sub show_user_config {
     my ( $self, $params ) = @_;
 
     my $responce = $self->directadmin->query(
-	command => 'CMD_API_SHOW_USER_CONFIG',
-	params  => $params,
-	allowed_fields => 'user',
+        command => 'CMD_API_SHOW_USER_CONFIG',
+        params  => $params,
+        allowed_fields => 'user',
     );
 
     return $responce;

@@ -24,14 +24,14 @@ sub adddb {
     carp 'params ' . Dumper($params) if $self->{debug};
     
     my $responce = $self->directadmin->query(
-	command        => 'CMD_API_DATABASES',
-	method	       => 'POST',
-	params         => $params,
-	allowed_fields => 'action
-			   name
-			   passwd
-			   passwd2
-			   user',
+        command        => 'CMD_API_DATABASES',
+        method	       => 'POST',
+        params         => $params,
+        allowed_fields => 'action
+                           name
+                           passwd
+                           passwd2
+                           user',
     );
     
     carp '$responce ' . Dumper(\$responce) if $self->{debug};
@@ -55,11 +55,11 @@ sub deldb {
     carp 'params ' . Dumper($params) if $self->{debug};
 
     my $responce = $self->directadmin->query(
-	command        => 'CMD_API_DATABASES',
-	method	       => 'POST',
-	params         => $params,
-	allowed_fields => 'action
-			   select0',
+        command        => 'CMD_API_DATABASES',
+        method	       => 'POST',
+        params         => $params,
+        allowed_fields => 'action
+                           select0',
     );
     
     carp '$responce ' . Dumper(\$responce) if $self->{debug};
@@ -75,8 +75,8 @@ sub list {
     my ($self ) = @_;
 
     my $responce = $self->directadmin->query(
-	command        => 'CMD_API_DATABASES',
-	method	       => 'GET',
+        command        => 'CMD_API_DATABASES',
+        method	       => 'GET',
     );
 
     carp '$responce ' . Dumper($responce) if $self->{debug};

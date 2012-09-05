@@ -31,8 +31,8 @@ sub new {
         host        => '',
         ip          => '',
         debug       => $DEBUG,
-	allow_https => 1,
-	fake_answer => $FAKE_ANSWER,
+        allow_https => 1,
+        fake_answer => $FAKE_ANSWER,
         (@_)
     };
 
@@ -76,7 +76,7 @@ sub load_component {
     local $@;
     eval { require $module };
     if ( $@ ) {
-	confess "Failed to load $pkg: $@";
+        confess "Failed to load $pkg: $@";
     }
 
     return $pkg->new(directadmin => $self);
@@ -232,16 +232,16 @@ sub mk_query_to_server {
     my $request = HTTP::Request->new( $method, $url );
     
     if ( $method eq 'GET' ) {
-	my $response = $ua->request( $request );
-	$content = $response->content;
+        my $response = $ua->request( $request );
+        $content = $response->content;
     }
     else { # Temporary URL for making request
-	my $temp_uri = URI->new('http:');
-	$temp_uri->query_form( $params );
-	$request->content( $temp_uri->query );
-	$request->content_type('application/x-www-form-urlencoded');
-	my $response = $ua->request($request);
-	$content = $response->content;
+        my $temp_uri = URI->new('http:');
+        $temp_uri->query_form( $params );
+        $request->content( $temp_uri->query );
+        $request->content_type('application/x-www-form-urlencoded');
+        my $response = $ua->request($request);
+        $content = $response->content;
     }
     
     warn "Answer: " . $content if $self->{debug};
@@ -262,13 +262,13 @@ sub parse_answer {
     my @params = split /&/, $response;
     
     foreach my $param ( @params ) {
-	my ($key, $value) = split /=/, $param;
-	if ( $key =~ /(.*)\[\]/ ) { # lists
-	    push @{ $answer{$1} },  $value;
-	}
-	else {
-	    $answer{$key} = $value;
-	}
+        my ($key, $value) = split /=/, $param;
+        if ( $key =~ /(.*)\[\]/ ) { # lists
+            push @{ $answer{$1} },  $value;
+        }
+        else {
+            $answer{$key} = $value;
+        }
     }
 
     return \%answer || '';
